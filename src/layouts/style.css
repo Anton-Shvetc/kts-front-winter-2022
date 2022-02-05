@@ -4,6 +4,9 @@
   --color-secondary_hover: #ff5555;
 
   --color-text: #7e7e7e;
+  --color-default: #000;
+  --linl-hover: #208fbf;
+  --color-background: #fff;
 }
 
 * {
@@ -20,7 +23,7 @@
   padding-top: 0;
   height: 90vh;
   overflow-y: scroll;
-  border: 3px solid #000;
+  border: 3px solid var(--color-default);
 }
 
 .search {
@@ -28,7 +31,7 @@
   padding: 20px 0;
 
   position: sticky;
-  background: #fff;
+  background: var(--color-background);
   top: 0;
   display: flex;
 }
@@ -65,7 +68,7 @@
   outline: none;
   border-radius: 6px;
   background-color: var(--color-secondary);
-  color: #fff;
+  color: var(--color-background);
 }
 .search__btn:hover {
   cursor: pointer;
@@ -77,12 +80,6 @@
   background-color: var(--color-primary);
 }
 
-/* .fas {
-  display: block;
-  height: 20px;
-  width: 20px;
-} */
-
 .cards {
   /* height: 80vh; */
   /* overflow-y: scroll; */
@@ -91,12 +88,85 @@
   width: 0;
 }
 .card {
+  box-sizing: border-box;
   width: 357px;
   height: 104px;
-  background: rgb(163, 41, 41);
+  border: 1px solid var(--color-primary);
+  border-radius: 6px;
   margin-bottom: 16px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
 }
 
-.search__input input {
-  margin-left: 0;
+.card:hover {
+  box-shadow: 0px 2px 6px #b6b6b6;
+  cursor: pointer;
 }
+
+.card__logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+
+  background: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card__logo span {
+  color: var(--color-background);
+  font-size: 42px;
+  font-weight: 700;
+
+  /* height: 80px; */
+}
+.card__text {
+  margin-left: 12px;
+  width: 250px;
+
+  color: var(--color-text);
+}
+
+.card__title {
+  /* background: #fff;
+  height: 50px; */
+  width: 241px;
+  font-weight: 700;
+  line-height: 18px;
+  font-size: 16px;
+  color: var(--color-default);
+  margin-bottom: 4px;
+
+  white-space: nowrap; /* Отменяем перенос текста */
+  overflow: hidden; /* Обрезаем содержимое */
+
+  text-overflow: ellipsis; /* Многоточие */
+}
+.card__link {
+  margin-bottom: 4px;
+}
+.card__link > a {
+  text-decoration: none;
+  color: var(--color-text);
+}
+.card__link a:hover {
+  color: var(--linl-hover);
+}
+.card__rating {
+  display: inline-block;
+
+  margin-right: 20px;
+}
+.card__rating > .far {
+  font-size: 12.39px;
+  vertical-align: 2px;
+  margin-right: 5px;
+  color: #ff9432;
+}
+.card__update {
+  display: inline;
+}
+/* .card__tittle span {
+  vertical-align: text-top;
+} */
