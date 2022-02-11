@@ -1,8 +1,8 @@
 // Перечисление методов HTTP-запроса
-enum HTTPMethod {
-  // TODO: заполнить
-
-  GET = "GET",
+export enum HTTPMethod {
+  
+POST = "POST",
+  GET = "GET"
 }
 
 // Параметры запроса
@@ -20,11 +20,13 @@ export type RequestParams<ReqT> = {
 };
 
 // Перечисление статусов ответа
-enum StatusHTTP {
-      200: "OK",
-      301: "Moved Permanently",
-  403: "Forbidden", 
-  500: "Not Found"
+export enum StatusHTTP {
+  OK = 200,
+  MOVED_PERMANENTLY = 301,
+  FORBIDDEN = 403,
+  NOT_FOUND = 500,
+  UNEXPECTED_ERROR = 'UNEXPECTED_ERROR'
+    
 }
 
 // TODO: заполнить
@@ -34,13 +36,18 @@ export type ApiResponse<SuccessT, ErrorT> =
   | {
       success: true;
       data: SuccessT;
-      status: StatusHTTP;
+      status: number;
     }
   | {
       success: false;
       data: ErrorT;
+      status: number;
+    } 
+    | {
+      success: false;
+      data: any;
       status: StatusHTTP;
-    };
+    }
 
 // Интерфейс для класса, с помощью которого можно делать запросы к API
 export interface IApiStore {
