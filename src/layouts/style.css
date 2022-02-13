@@ -2,11 +2,12 @@
   --color-primary: #d9d9d9;
   --color-secondary: #ff5555;
   --color-secondary_hover: #ff5555;
-
   --color-text: #7e7e7e;
   --color-default: #000;
   --linl-hover: #208fbf;
   --color-background: #fff;
+  --color-shadow: #b6b6b6;
+  --color-raiting: #ff9432;
 }
 
 * {
@@ -18,18 +19,16 @@
 .container {
   max-width: 357px;
   margin: 0 auto;
-
   padding: 0 20px;
   padding-top: 0;
   height: 90vh;
   overflow-y: scroll;
-  border: 3px solid var(--color-default);
+  display: grid;
 }
 
 .search {
   height: 50px;
   padding: 20px 0;
-
   position: sticky;
   background: var(--color-background);
   top: 0;
@@ -39,7 +38,6 @@
 .search__input {
   display: block;
   box-sizing: border-box;
-
   width: 295px;
   height: 50px;
   outline: 0;
@@ -51,8 +49,7 @@
 }
 .search__input:focus {
   border: 1px solid var(--color-secondary);
-
-  color: #000;
+  color: var(--color-default);
 }
 
 .search__input:disabled {
@@ -62,7 +59,6 @@
   width: 50px;
   height: 50px;
   font-size: 17.5px;
-
   margin-left: 12px;
   border: none;
   outline: none;
@@ -72,7 +68,6 @@
 }
 .search__btn:hover {
   cursor: pointer;
-
   opacity: 0.6;
 }
 
@@ -80,10 +75,6 @@
   background-color: var(--color-primary);
 }
 
-.cards {
-  /* height: 80vh; */
-  /* overflow-y: scroll; */
-}
 ::-webkit-scrollbar {
   width: 0;
 }
@@ -100,7 +91,7 @@
 }
 
 .card:hover {
-  box-shadow: 0px 2px 6px #b6b6b6;
+  box-shadow: 0px 2px 6px var(--color-shadow);
   cursor: pointer;
 }
 
@@ -108,7 +99,6 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-
   background: var(--color-secondary);
   display: flex;
   align-items: center;
@@ -118,30 +108,23 @@
   color: var(--color-background);
   font-size: 42px;
   font-weight: 700;
-
-  /* height: 80px; */
 }
 .card__text {
   margin-left: 12px;
   width: 250px;
-
   color: var(--color-text);
 }
 
 .card__title {
-  /* background: #fff;
-  height: 50px; */
   width: 241px;
   font-weight: 700;
   line-height: 18px;
   font-size: 16px;
   color: var(--color-default);
   margin-bottom: 4px;
-
-  white-space: nowrap; /* Отменяем перенос текста */
-  overflow: hidden; /* Обрезаем содержимое */
-
-  text-overflow: ellipsis; /* Многоточие */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .card__link {
   margin-bottom: 4px;
@@ -162,11 +145,8 @@
   font-size: 12.39px;
   vertical-align: 2px;
   margin-right: 5px;
-  color: #ff9432;
+  color: var(--color-raiting);
 }
 .card__update {
   display: inline;
 }
-/* .card__tittle span {
-  vertical-align: text-top;
-} */
