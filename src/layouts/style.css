@@ -4,7 +4,7 @@
   --color-secondary_hover: #ff5555;
   --color-text: #7e7e7e;
   --color-default: #000;
-  --linl-hover: #208fbf;
+  --link-hover: #208fbf;
   --color-background: #fff;
   --color-shadow: #b6b6b6;
   --color-raiting: #ff9432;
@@ -19,12 +19,10 @@
 .container {
   max-width: 357px;
   margin: 0 auto;
-  padding: 0 20px;
   padding-top: 0;
   height: 90vh;
   overflow-y: scroll;
-  display: grid;
-}
+ }
 
 .search {
   height: 50px;
@@ -76,12 +74,11 @@
 }
 
 ::-webkit-scrollbar {
-  width: 0;
+ display: none;
 }
 .card {
   box-sizing: border-box;
   width: 357px;
-  height: 104px;
   border: 1px solid var(--color-primary);
   border-radius: 6px;
   margin-bottom: 16px;
@@ -98,20 +95,18 @@
 .card__logo {
   width: 80px;
   height: 80px;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--color-background);
   border-radius: 50%;
   background: var(--color-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.card__logo span {
-  color: var(--color-background);
-  font-size: 42px;
-  font-weight: 700;
-}
+
 .card__text {
   margin-left: 12px;
-  width: 250px;
   color: var(--color-text);
 }
 
@@ -126,27 +121,24 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.card__link {
+
+.card__link  {
+  display: block;
   margin-bottom: 4px;
-}
-.card__link > a {
   text-decoration: none;
   color: var(--color-text);
 }
-.card__link a:hover {
-  color: var(--linl-hover);
+.card__link:hover {
+  color: var(--link-hover);
 }
 .card__rating {
   display: inline-block;
-
   margin-right: 20px;
 }
-.card__rating > .far {
-  font-size: 12.39px;
+.far {
+  font-size: 12.4px;
   vertical-align: 2px;
   margin-right: 5px;
   color: var(--color-raiting);
 }
-.card__update {
-  display: inline;
-}
+
