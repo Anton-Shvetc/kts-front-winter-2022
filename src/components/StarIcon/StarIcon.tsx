@@ -1,5 +1,5 @@
 import React from "react";
-import "./StarIcon.css";
+import "./StarIcon.scss";
 
 export type StartIconProps = {
   currentColor?: string;

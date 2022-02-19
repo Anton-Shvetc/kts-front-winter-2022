@@ -2,16 +2,13 @@
 import { useState } from "react";
 import React from "react";
 import { useEffect } from "react";
-
-
-
 import "./ReposSearchPage.scss";
 import GitHubStore from "@store/GitHubStore/GitHubStore";
 import { RepoItem } from "@store/GitHubStore/types";
 import Input from "@components/Input/Input";
 import Button from "@components/Button/Button";
 import RepoTitle from "@components/RepoTitle/RepoTitle";
-// import { Spin, BackTop } from "antd";
+import SearchIcon from "@components/SearcIcon/SearchIcon";
 
 function ReposSearchPage() {
 
@@ -23,7 +20,7 @@ function ReposSearchPage() {
 
   useEffect(() => {
     const getRepos = async () => {
-      const EXAMPLE_ORGANIZATION = "kubernetes";
+      const EXAMPLE_ORGANIZATION = "ktsstudio";
       try {
         await new GitHubStore()
           .getOrganizationReposList({
@@ -63,17 +60,36 @@ function ReposSearchPage() {
     <div className="ReposSearchPage">
 
 
-
-   <Input
+<div className="search">
+     <Input
           placeholder="Введите название репозитория"
           onChange={handleChange}
           value={value}
        
         />
-  <Button className="search__btn" />
+  <Button className="search__btn" >
+    <SearchIcon />
+    </Button>
+
+</div>
+
 
 <div className="cards">
-  <RepoTitle />
+ 
+{repoList.map((repo) => (
+          <React.Fragment key={repo.id}>
+            <RepoTitle repo={repo} onClick={showDrawer} />
+            {/* <RepoBranchesDrawer
+              selectedRepo={repo}
+              visible={visible}
+              onClose={onClose}
+            /> */}
+          </React.Fragment>
+        ))}
+        {!repoList.length && <span>Репозиториев не найдено</span>}
+      
+
+
 </div>
 
 
@@ -82,13 +98,3 @@ function ReposSearchPage() {
 }export default ReposSearchPage;
 
 
-      //  {repoList.map((repo) => (
-      //     <React.Fragment key={repo.id}>
-      //       <RepoTile repo={repo} onClick={showDrawer} />
-      //       <RepoBranchesDrawer
-      //         selectedRepo={repo}
-      //         visible={visible}
-      //         onClose={onClose}
-      //       />
-      //     </React.Fragment>
-      //   ))}
