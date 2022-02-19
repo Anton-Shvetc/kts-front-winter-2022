@@ -1,0 +1,12 @@
+.card__logo {
+  width: 80px;
+  height: 80px;
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--color-background);
+  border-radius: 50%;
+  background: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

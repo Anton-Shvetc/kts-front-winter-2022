@@ -1,0 +1,94 @@
+
+import { useState } from "react";
+import React from "react";
+import { useEffect } from "react";
+
+
+
+import "./ReposSearchPage.scss";
+import GitHubStore from "@store/GitHubStore/GitHubStore";
+import { RepoItem } from "@store/GitHubStore/types";
+import Input from "@components/Input/Input";
+import Button from "@components/Button/Button";
+import RepoTitle from "@components/RepoTitle/RepoTitle";
+// import { Spin, BackTop } from "antd";
+
+function ReposSearchPage() {
+
+ const [repoList, setRepoList] = useState<RepoItem[]>([]);
+  const [value, setValue] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [disabled, setDisabled] = useState(false);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const getRepos = async () => {
+      const EXAMPLE_ORGANIZATION = "kubernetes";
+      try {
+        await new GitHubStore()
+          .getOrganizationReposList({
+            organizationName: EXAMPLE_ORGANIZATION,
+          })
+          .then((repo) => setRepoList(repo.data))
+          .finally(() => {
+            setIsLoading(false);
+            setDisabled(false);
+          });
+      } catch (err) {}
+    };
+    getRepos();
+  }, [value]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
+  const handleSearch = () => {
+    const filteredData = repoList.filter((repo) => {
+      return repo.name.toLowerCase().includes(value.toLowerCase());
+    });
+    setRepoList(filteredData);
+    setDisabled(true);
+  };
+
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
+
+  return (
+    <div className="ReposSearchPage">
+
+
+
+   <Input
+          placeholder="Введите название репозитория"
+          onChange={handleChange}
+          value={value}
+       
+        />
+  <Button className="search__btn" />
+
+<div className="cards">
+  <RepoTitle />
+</div>
+
+
+    </div>
+  );
+}export default ReposSearchPage;
+
+
+      //  {repoList.map((repo) => (
+      //     <React.Fragment key={repo.id}>
+      //       <RepoTile repo={repo} onClick={showDrawer} />
+      //       <RepoBranchesDrawer
+      //         selectedRepo={repo}
+      //         visible={visible}
+      //         onClose={onClose}
+      //       />
+      //     </React.Fragment>
+      //   ))}

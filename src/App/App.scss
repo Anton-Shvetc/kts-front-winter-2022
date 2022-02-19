@@ -1,0 +1,23 @@
+@import "../index.scss";
+
+.App {
+  max-width: 357px;
+  margin: 0 auto;
+  padding-top: 0;
+  height: 90vh;
+  overflow-y: scroll;
+  border: 1px solid var(--color-default);
+}
+
+.search {
+  height: 50px;
+  padding: 20px 0;
+  position: sticky;
+  background: var(--color-background);
+  top: 0;
+  display: flex;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

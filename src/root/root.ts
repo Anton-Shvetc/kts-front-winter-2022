@@ -15,5 +15,19 @@ gitHubStore
         })
       );
     }
-    console.log(result); 
+    console.log(result);
   });
+// gitHubStore
+//   .getRepoBranchesList({
+//     organizationName: EXAMPLE_ORGANIZATION,
+//   })
+//   .then((result) => {
+//     if (result.success) {
+//       console.log(
+//         result.data.map((repo) => {
+//           return repo.name;
+//         })
+//       );
+//     }
+//     console.log(result);
+//   });
