@@ -78,11 +78,11 @@ function ReposSearchPage() {
           <React.Fragment key={repo.id}>
             <RepoTitle repo={repo} onClick={showDrawer} />
 
-            {/* <RepoBranchesDrawer
+            <RepoBranchesDrawer
               selectedRepo={repo}
               visible={visible}
               onClose={onClose}
-            /> */}
+            />
           </React.Fragment>
         ))}
 
