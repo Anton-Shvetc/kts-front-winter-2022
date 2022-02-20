@@ -1,7 +1,7 @@
-
 import { useState } from "react";
 import React from "react";
 import { useEffect } from "react";
+
 import "./ReposSearchPage.scss";
 import GitHubStore from "@store/GitHubStore/GitHubStore";
 import { RepoItem } from "@store/GitHubStore/types";
@@ -9,10 +9,10 @@ import Input from "@components/Input/Input";
 import Button from "@components/Button/Button";
 import RepoTitle from "@components/RepoTitle/RepoTitle";
 import SearchIcon from "@components/SearcIcon/SearchIcon";
+import RepoBranchesDrawer from "@components/RepoBranchesDrawer/RepoBranchesDrawer";
 
 function ReposSearchPage() {
-
- const [repoList, setRepoList] = useState<RepoItem[]>([]);
+  const [repoList, setRepoList] = useState<RepoItem[]>([]);
   const [value, setValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [disabled, setDisabled] = useState(false);
@@ -20,7 +20,7 @@ function ReposSearchPage() {
 
   useEffect(() => {
     const getRepos = async () => {
-      const EXAMPLE_ORGANIZATION = "ktsstudio";
+      const EXAMPLE_ORGANIZATION = "kubernetes";
       try {
         await new GitHubStore()
           .getOrganizationReposList({
@@ -58,43 +58,37 @@ function ReposSearchPage() {
 
   return (
     <div className="ReposSearchPage">
-
-
-<div className="search">
-     <Input
+      <div className="search">
+        <Input
           placeholder="Введите название репозитория"
           onChange={handleChange}
           value={value}
-       
         />
-  <Button className="search__btn" >
-    <SearchIcon />
-    </Button>
+        <Button
+          onClick={handleSearch}
+          disabled={disabled}
+          className="search__btn"
+        >
+          <SearchIcon />
+        </Button>
+      </div>
 
-</div>
-
-
-<div className="cards">
- 
-{repoList.map((repo) => (
+      <div className="cards">
+        {repoList.map((repo) => (
           <React.Fragment key={repo.id}>
             <RepoTitle repo={repo} onClick={showDrawer} />
-            {/* <RepoBranchesDrawer
+
+            <RepoBranchesDrawer
               selectedRepo={repo}
               visible={visible}
               onClose={onClose}
-            /> */}
+            />
           </React.Fragment>
         ))}
+
         {!repoList.length && <span>Репозиториев не найдено</span>}
-      
-
-
-</div>
-
-
+      </div>
     </div>
   );
-}export default ReposSearchPage;
-
-
+}
+export default ReposSearchPage;

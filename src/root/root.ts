@@ -10,12 +10,7 @@ gitHubStore
     repoName: EXAMPLE_REPO,
   })
   .then((result) => {
-    if (result.success) {
-      console.log(
-        result.data.map((repo) => {
-          return repo.name;
-        })
-      );
-    }
+    /* eslint-disable no-console */
     console.log(result);
+    /* eslint-disable no-console */
   });

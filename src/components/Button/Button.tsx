@@ -1,16 +1,6 @@
 import React from "react";
 import { PropsWithChildren } from "react";
-import "./Button.scss"
-
-// function Button() {
-//   return <div className="search__btn"><i className="fas fa-search"></i></div>;
-// }
-
-// export default Button;
-
-
-
-
+import "./Button.scss";
 
 export type ButtonProps = PropsWithChildren<{
   onClick?: (e: React.MouseEvent) => void;

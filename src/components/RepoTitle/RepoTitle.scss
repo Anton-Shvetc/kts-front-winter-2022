@@ -33,9 +33,13 @@
   &__link {
     display: block;
     margin-bottom: 4px;
-    text-decoration: none;
-    color: var(--color-text);
-    &:hover {
+
+    a {
+      text-decoration: none;
+      color: var(--color-text);
+    }
+
+    a:hover {
       color: var(--link-hover);
     }
   }

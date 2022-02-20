@@ -1,26 +1,12 @@
 import ReposSearchPage from "../pages/ReposSearchPage/ReposSearchPage";
 import React from "react";
-import "./App.scss"
-
+import "./App.scss";
 
 function App() {
   return (
     <div className="App">
-<ReposSearchPage />
+      <ReposSearchPage />
     </div>
-
-  )
- 
-}export default App;
-
-
-      //  {repoList.map((repo) => (
-      //     <React.Fragment key={repo.id}>
-      //       <RepoTile repo={repo} onClick={showDrawer} />
-      //       <RepoBranchesDrawer
-      //         selectedRepo={repo}
-      //         visible={visible}
-      //         onClose={onClose}
-      //       />
-      //     </React.Fragment>
-      //   ))}
+  );
+}
+export default App;
