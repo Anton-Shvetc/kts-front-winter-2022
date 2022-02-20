@@ -1,6 +1,7 @@
 import GitHubStore from "@store/GitHubStore/GitHubStore";
 import { BranchItem, RepoItem } from "@store/GitHubStore/types";
 import React, { useEffect, useState } from "react";
+// import { Drawer } from "antd";
 
 declare type EventType =
   | React.KeyboardEvent<HTMLDivElement>
@@ -36,8 +37,13 @@ const RepoBranchesDrawer: React.FC<RepoBranchesDrawerProps> = ({
   }, [selectedRepo.owner.login, selectedRepo.name]);
 
   return (
-    <div title="Список веток">
-      <button onClick={onClose}>Close</button>
+    // <Drawer
+    //   title="Список веток"
+    //   placement="right"
+    //   onClose={onClose}
+    //   visible={visible}
+    // >
+    <div>
       {branchesList.length &&
         branchesList.map((branch, i) => (
           <React.Fragment key={i}>
@@ -47,6 +53,7 @@ const RepoBranchesDrawer: React.FC<RepoBranchesDrawerProps> = ({
           </React.Fragment>
         ))}
     </div>
+    // </Drawer>
   );
 };
 

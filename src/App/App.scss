@@ -1,5 +1,5 @@
 @import "../index.scss";
-
+@import "~antd/dist/antd.css";
 .App {
   max-width: 357px;
   margin: 0 auto;
@@ -9,7 +9,6 @@
 }
 
 .search {
-  height: 50px;
   padding: 20px 0;
   position: sticky;
   background: var(--color-background);

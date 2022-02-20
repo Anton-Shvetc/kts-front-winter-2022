@@ -20,7 +20,7 @@ function ReposSearchPage() {
 
   useEffect(() => {
     const getRepos = async () => {
-      const EXAMPLE_ORGANIZATION = "kubernetes";
+      const EXAMPLE_ORGANIZATION = "ktsstudio";
       try {
         await new GitHubStore()
           .getOrganizationReposList({
@@ -78,11 +78,11 @@ function ReposSearchPage() {
           <React.Fragment key={repo.id}>
             <RepoTitle repo={repo} onClick={showDrawer} />
 
-            <RepoBranchesDrawer
+            {/* <RepoBranchesDrawer
               selectedRepo={repo}
               visible={visible}
               onClose={onClose}
-            />
+            /> */}
           </React.Fragment>
         ))}
 
