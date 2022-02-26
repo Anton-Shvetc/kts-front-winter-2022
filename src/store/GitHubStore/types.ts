@@ -1,31 +1,44 @@
 import { ApiResponse } from "@shared/store/ApiStore/types";
 
+// Параметры запроса
 export type GetOrganizationReposListParams = {
   organizationName: string;
+  per_page?: number;
+  page?: number;
 };
 
+// Параметры запроса
 export type GetRepoBranchesLisParams = {
   ownerName: string;
   repoName: string;
 };
 
 export type GitHubRepoOwner = {
-  id: number;
-  url: string;
-  avatar_url: string;
+  id: string;
   login: string;
-};
-export type RepoItem = {
-  id: number;
+  avatar_url: string;
   url: string;
-  name: string;
-  stargazer_count: number;
-  owner: GitHubRepoOwner;
 };
+
+export type RepoItem = {
+  id: string;
+  name: string;
+  url: string;
+  private: boolean;
+  stargazers_count: number;
+  owner: GitHubRepoOwner;
+  updated_at: Date;
+};
+
 export type BranchItem = {
   name: string;
   protected: boolean;
-  url: string;
+  protection_url: string;
+};
+
+export type GetOrganizationRepoByIdParams = {
+  name: string;
+  organizationName: string;
 };
 
 export interface IGitHubStore {
@@ -36,4 +49,7 @@ export interface IGitHubStore {
   getRepoBranchesList(
     params: GetRepoBranchesLisParams
   ): Promise<ApiResponse<BranchItem[], any>>;
+  getOrganizationRepoById(
+    params: GetOrganizationRepoByIdParams
+  ): Promise<ApiResponse<RepoItem, any>>;
 }
