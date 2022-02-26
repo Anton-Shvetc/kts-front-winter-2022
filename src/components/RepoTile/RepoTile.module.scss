@@ -43,4 +43,10 @@
       color: var(--link-hover);
     }
   }
+  &__raiting {
+    margin-right: 5px;
+  }
+  &__info {
+    display: flex;
+  }
 }
