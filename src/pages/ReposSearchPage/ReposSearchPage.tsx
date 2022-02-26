@@ -64,16 +64,13 @@ function ReposSearchPage() {
           onChange={handleChange}
           value={value}
         />
-        <Button
-          onClick={handleSearch}
-          disabled={disabled}
-          className="search__btn"
-        >
+        <Button onClick={handleSearch} disabled={disabled} className="btn">
           <SearchIcon />
         </Button>
       </div>
 
       <div className="cards">
+        {console.log(repoList)}
         {repoList.map((repo) => (
           <React.Fragment key={repo.id}>
             <RepoTitle repo={repo} onClick={showDrawer} />

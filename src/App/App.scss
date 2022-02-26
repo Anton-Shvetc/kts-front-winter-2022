@@ -1,4 +1,4 @@
-@import "../index.scss";
+@import "../styles/index.scss";
 @import "~antd/dist/antd.css";
 .App {
   max-width: 357px;
@@ -6,14 +6,6 @@
   padding-top: 0;
   height: 90vh;
   overflow-y: scroll;
-}
-
-.search {
-  padding: 20px 0;
-  position: sticky;
-  background: var(--color-background);
-  top: 0;
-  display: flex;
 }
 
 ::-webkit-scrollbar {
