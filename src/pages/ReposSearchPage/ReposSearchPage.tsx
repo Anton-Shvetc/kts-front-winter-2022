@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { Spin, BackTop } from "antd";
+import { Spin } from "antd";
 
 import styles from "./ReposSearchPage.module.scss";
 import Button from "@components/Button/Button";
@@ -31,7 +31,7 @@ const ReposSearchPage: React.FC = () => {
 
   return (
     <Spin spinning={reposContext.isLoading} tip="Loading...">
-      <div className={styles.ReposSearchPage}>
+      <div>
         <div className={styles.search}>
           <Input
             placeholder="Введите название репозитория"

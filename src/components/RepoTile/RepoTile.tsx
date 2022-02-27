@@ -17,9 +17,7 @@ const RepoTile: React.FC<RepoTileProps> = ({ repo }) => (
   <Tooltip title="Посмотреть ветки репозитория" color="#FF5555">
     <Link to={`/repos/${repo.id}`}>
       <div className={styles.card}>
-        <div className={styles.gitRepoTile__avatar}>
-          <Avatar src={repo.owner.avatar_url}></Avatar>
-        </div>
+        <Avatar src={repo.owner.avatar_url}></Avatar>
         <div className={styles.card__text}>
           <div className={styles.card__title}>
             <b> {repo.name} </b>
