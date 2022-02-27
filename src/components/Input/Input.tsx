@@ -1,7 +1,6 @@
 import React from "react";
 import { ChangeEventHandler } from "react";
-import "./Input.scss"
-
+import "./Input.scss";
 
 export type InputProps = {
   onChange: ChangeEventHandler<HTMLInputElement>;
@@ -19,4 +18,4 @@ const Input: React.FC<InputProps> = ({ onChange, placeholder, value }) => (
   />
 );
 
-export default Input;
+export default React.memo(Input);

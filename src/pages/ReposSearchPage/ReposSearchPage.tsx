@@ -7,14 +7,15 @@ import GitHubStore from "@store/GitHubStore/GitHubStore";
 import { RepoItem } from "@store/GitHubStore/types";
 import Input from "@components/Input/Input";
 import Button from "@components/Button/Button";
-import RepoTitle from "@components/RepoTitle/RepoTitle";
+
 import SearchIcon from "@components/SearcIcon/SearchIcon";
 import RepoBranchesDrawer from "@components/RepoBranchesDrawer/RepoBranchesDrawer";
+import RepoTile from "@components/RepoTiles/RepoTile";
 
 function ReposSearchPage() {
   const [repoList, setRepoList] = useState<RepoItem[]>([]);
   const [value, setValue] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [visible, setVisible] = useState(false);
 
@@ -28,7 +29,7 @@ function ReposSearchPage() {
           })
           .then((repo) => setRepoList(repo.data))
           .finally(() => {
-            setIsLoading(false);
+            setIsLoading(true);
             setDisabled(false);
           });
       } catch (err) {}
@@ -73,7 +74,7 @@ function ReposSearchPage() {
         {console.log(repoList)}
         {repoList.map((repo) => (
           <React.Fragment key={repo.id}>
-            <RepoTitle repo={repo} onClick={showDrawer} />
+            <RepoTile repo={repo} onClick={showDrawer} />
 
             <RepoBranchesDrawer
               selectedRepo={repo}

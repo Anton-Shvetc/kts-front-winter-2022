@@ -1,6 +1,6 @@
 import Avatar from "@components/Avatar/Avatar";
 import React from "react";
-import "./RepoTitle.scss";
+import "./RepoTile.scss";
 import "../../root/root";
 import { RepoItem } from "@store/GitHubStore/types";
 import StartIcon from "@components/StarIcon/StarIcon";
@@ -10,9 +10,9 @@ export type RepoTileProps = {
   repo: RepoItem;
 };
 
-const RepoTitle: React.FC<RepoTileProps> = ({ onClick, repo }) => (
+const RepoTile: React.FC<RepoTileProps> = ({ onClick, repo }) => (
   <div className="card" onClick={onClick}>
-    <Avatar />
+    <Avatar src={repo.owner.avatar_url} alt={repo.name[0]} />
     <div className="card__text">
       <div className="card__title">
         <span>{repo.name}</span>
@@ -28,4 +28,4 @@ const RepoTitle: React.FC<RepoTileProps> = ({ onClick, repo }) => (
   </div>
 );
 
-export default RepoTitle;
+export default React.memo(RepoTile);

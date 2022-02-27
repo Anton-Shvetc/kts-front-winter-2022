@@ -23,16 +23,16 @@ const RepoBranchesDrawer: React.FC<RepoBranchesDrawerProps> = ({
 
   useEffect(() => {
     const getBranches = async () => {
-      const EXAMPLE_ORGANIZATION = selectedRepo.owner.login;
-      const EXAMPLE_REPO = selectedRepo.name;
       try {
         await new GitHubStore()
           .getRepoBranchesList({
-            ownerName: EXAMPLE_ORGANIZATION,
-            repoName: EXAMPLE_REPO,
+            ownerName: selectedRepo.owner.login,
+            repoName: selectedRepo.name,
           })
           .then((branch) => setBranchesList(branch.data));
-      } catch (err) {}
+      } catch (err) {
+        alert("Что-то пошло не так..");
+      }
     };
     getBranches();
   }, [selectedRepo.owner.login, selectedRepo.name]);
@@ -46,14 +46,12 @@ const RepoBranchesDrawer: React.FC<RepoBranchesDrawerProps> = ({
     >
       {branchesList.length &&
         branchesList.map((branch, i) => (
-          <React.Fragment key={i}>
-            <p>
-              {i + 1}. {branch.name}
-            </p>
-          </React.Fragment>
+          <p key={i}>
+            {i + 1}. {branch.name}
+          </p>
         ))}
     </Drawer>
   );
 };
 
-export default RepoBranchesDrawer;
+export default React.memo(RepoBranchesDrawer);
