@@ -1,0 +1,13 @@
+@import "../styles/index.scss";
+@import "~antd/dist/antd.css";
+.App {
+  max-width: 357px;
+  margin: 0 auto;
+  padding-top: 0;
+  height: 90vh;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
