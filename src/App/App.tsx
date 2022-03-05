@@ -1,6 +1,5 @@
 import { createContext, useCallback, useContext, useState } from "react";
 
-import { RepoItem } from "@store/GitHubStore/types";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -12,65 +11,51 @@ import React from "react";
 
 import RepoItemBranches from "@pages/RepoItemBrancehs/RepoItemBranches";
 import ReposSearchPage from "@pages/ReposSearchPage/ReposSearchPage";
-import GitHubStore from "@store/GitHubStore/GitHubStore";
+
+import { RepoItemModel } from "@store/models/gitHub/repoItem";
+import { useLocalStore } from "@utils/useLocalStore";
+import ReposListStore from "@store/ReposListStore/ReposListStore";
 
 type ReposContextType = {
-  repoList: RepoItem[];
-  filteredData: (value: string) => void;
-  isLoading: boolean;
+  list: RepoItemModel[];
+  loading: string;
   load: () => void;
   fetchData: () => void;
 };
 
 const ReposContext = createContext<ReposContextType>({
-  repoList: [],
-  isLoading: true,
-  filteredData: () => {},
+  list: [],
+  loading: "",
   load: () => {},
   fetchData: () => {},
 });
+
 
 const Provider = ReposContext.Provider;
 
 export const useReposContext = () => useContext(ReposContext);
 
 function App() {
-  const [repoList, setRepoList] = useState<RepoItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const reposListStore = useLocalStore(() => new ReposListStore());
+  let [page, setPage] = useState(1);
+  let list = reposListStore.list;
+  let loading = reposListStore.meta;
 
-  const load = () => {
-    const getRepos = async () => {
-      try {
-        await new GitHubStore()
-          .getOrganizationReposList({
-            organizationName: "ktsstudio",
-            per_page: 10,
-            page: 1,
-          })
-          .then((repo) => setRepoList(repo.data))
-          .finally(() => {
-            setIsLoading(false);
-          });
-      } catch (err) {}
-    };
-    getRepos();
-  };
-
-  const filteredData = (value: string) => {
-    const filteredData = repoList.filter((repo) => {
-      return repo.name.toLowerCase().includes(value.toLowerCase());
+  const load = useCallback(async () => {
+    await reposListStore.getOrganizationReposList({
+      organizationName: "kubernetes",
+      per_page: 10,
+      page: page,
     });
-    setRepoList(filteredData);
-  };
+  }, [reposListStore, page]);
 
-  const fetchData = useCallback(() => {
-    setTimeout(() => {
-      setRepoList((prev) => [...prev, ...prev]);
-    }, 2000);
-  }, []);
+ 
+  const fetchData = () => {
+    setPage(page++);
+  };
 
   return (
-    <Provider value={{ repoList, isLoading, load, filteredData, fetchData }}>
+    <Provider value={{ list, loading, load, fetchData }}>
       <div className="App">
         <Router>
           <Switch>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { Spin } from "antd";
 
@@ -9,6 +9,7 @@ import SearchIcon from "@components/SearcIcon/SearchIcon";
 import RepoTile from "@components/RepoTile/RepoTile";
 import { useReposContext } from "../../App/App";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Link } from "react-router-dom";
 
 const ReposSearchPage: React.FC = () => {
   const reposContext = useReposContext();
@@ -19,18 +20,22 @@ const ReposSearchPage: React.FC = () => {
     reposContext.load();
   }, [value]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-    setDisabled(false);
-  };
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setValue(event.target.value);
+      setDisabled(false);
+    },
+    []
+  );
 
-  const handleSearch = () => {
-    reposContext.filteredData(value);
+  const handleSearch = useCallback(() => {
+    reposContext.list = reposContext.list.filter((repo) => {
+      return repo.name.toLowerCase().includes(value.toLowerCase());
+    });
     setDisabled(true);
-  };
-
+  }, [reposContext, value]);
   return (
-    <Spin spinning={reposContext.isLoading} tip="Loading...">
+    <Spin spinning={reposContext.loading} tip="Loading...">
       <div>
         <div className={styles.search}>
           <Input
@@ -47,16 +52,16 @@ const ReposSearchPage: React.FC = () => {
             next={reposContext.fetchData}
             hasMore={true}
             loader={<h4>Loading...</h4>}
-            dataLength={reposContext.repoList.length}
+            dataLength={reposContext.list.length}
           >
-            {reposContext.repoList.map((repo) => (
+            {reposContext.list.map((repo) => (
               <React.Fragment key={repo.id}>
-                <RepoTile repo={repo} />
+                <Link to={`/repos/${repo.id}`}>
+                  <RepoTile repo={repo} />
+                </Link>
               </React.Fragment>
             ))}
-            {!reposContext.repoList.length && (
-              <span>Репозиториев не найдено</span>
-            )}
+            {!reposContext.list.length && <span>Репозиториев не найдено</span>}
           </InfiniteScroll>
         </div>
       </div>
