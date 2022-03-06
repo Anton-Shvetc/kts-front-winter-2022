@@ -1,0 +1,20 @@
+.repoItemPage {
+  margin: 20px;
+  text-align: center;
+
+  & h2 {
+    text-align: center;
+    margin: 30px;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-around;
+
+    & button {
+      margin-top: 20px;
+      margin: 0 auto;
+      width: 200px;
+    }
+  }
+}

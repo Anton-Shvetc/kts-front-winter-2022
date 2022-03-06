@@ -14,9 +14,9 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   className,
 }) => (
-  <button onClick={onClick} disabled={disabled} className={className}>
+  <button onClick={onClick} disabled={disabled}>
     {children}
   </button>
 );
 
-export default Button;
+export default React.memo(Button);

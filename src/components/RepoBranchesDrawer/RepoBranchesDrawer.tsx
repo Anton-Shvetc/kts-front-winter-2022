@@ -1,59 +1,51 @@
-import GitHubStore from "@store/GitHubStore/GitHubStore";
-import { BranchItem, RepoItem } from "@store/GitHubStore/types";
+import React, { useEffect } from "react";
 
-import React, { useEffect, useState } from "react";
+import { RepoItemModel } from "../../store/models/gitHub/repoItem";
+import RepoBranchesStore from "../../store/RepoBranchesStore/RepoBranchesStore";
+import { useLocalStore } from "@utils/useLocalStore";
 import { Drawer } from "antd";
 
 declare type EventType =
   | React.KeyboardEvent<HTMLDivElement>
   | React.MouseEvent<HTMLDivElement | HTMLButtonElement>;
 
-export type RepoBranchesDrawerProps = {
-  selectedRepo: RepoItem;
-  onClose: (e: EventType) => void;
-  visible: boolean;
-};
+  export type RepoBranchesDrawerProps = {
+    selectedRepo: RepoItemModel;
+    onClose: (e: EventType) => void;
+    visible: boolean;
+  };
+
 
 const RepoBranchesDrawer: React.FC<RepoBranchesDrawerProps> = ({
   selectedRepo,
   onClose,
   visible,
 }) => {
-  const [branchesList, setBranchesList] = useState<BranchItem[]>([]);
+  const repoBranchesStore = useLocalStore(() => new RepoBranchesStore());
 
   useEffect(() => {
-    const getBranches = async () => {
-      const EXAMPLE_ORGANIZATION = selectedRepo.owner.login;
-      const EXAMPLE_REPO = selectedRepo.name;
-      try {
-        await new GitHubStore()
-          .getRepoBranchesList({
-            ownerName: EXAMPLE_ORGANIZATION,
-            repoName: EXAMPLE_REPO,
-          })
-          .then((branch) => setBranchesList(branch.data));
-      } catch (err) {}
-    };
-    getBranches();
-  }, [selectedRepo.owner.login, selectedRepo.name]);
+    repoBranchesStore.getRepoBranchesList({
+      ownerName: selectedRepo.owner.login,
+      repoName: selectedRepo.name,
+    });
+  }, [repoBranchesStore, selectedRepo]);
+
 
   return (
     <Drawer
-      title="Список веток"
-      placement="right"
-      onClose={onClose}
-      visible={visible}
-    >
-      {branchesList.length &&
-        branchesList.map((branch, i) => (
-          <React.Fragment key={i}>
-            <p>
-              {i + 1}. {branch.name}
-            </p>
-          </React.Fragment>
-        ))}
+    title="Список веток"
+    placement="right"
+    onClose={onClose}
+    visible={visible}
+  >
+    {repoBranchesStore.branches.length &&
+      repoBranchesStore.branches.map((branch, i) => (
+        <p key={i}>
+          {i + 1}. {branch.name}
+        </p>
+      ))}
     </Drawer>
   );
 };
 
-export default RepoBranchesDrawer;
+export default React.memo(RepoBranchesDrawer);

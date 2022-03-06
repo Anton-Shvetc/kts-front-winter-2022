@@ -1,94 +1,85 @@
-import { useState } from "react";
-import React from "react";
-import { useEffect } from "react";
-
-import "./ReposSearchPage.scss";
-import GitHubStore from "@store/GitHubStore/GitHubStore";
-import { RepoItem } from "@store/GitHubStore/types";
-import Input from "@components/Input/Input";
+import React, { useState, useEffect, useCallback } from "react";
+import { Spin } from "antd";
+import styles from "./ReposSearchPage.module.scss";
 import Button from "@components/Button/Button";
-import RepoTitle from "@components/RepoTitle/RepoTitle";
+import Input from "@components/Input/Input";
 import SearchIcon from "@components/SearcIcon/SearchIcon";
-import RepoBranchesDrawer from "@components/RepoBranchesDrawer/RepoBranchesDrawer";
+import RepoTile from "@components/RepoTile/RepoTile";
+import { useReposContext } from "../../App/App";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { Link } from "react-router-dom";
 
-function ReposSearchPage() {
-  const [repoList, setRepoList] = useState<RepoItem[]>([]);
+import Error from "@components/Error/Error";
+
+import { Meta } from "@utils/meta";
+
+const ReposSearchPage: React.FC = () => {
+  const reposContext = useReposContext();
   const [value, setValue] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [disabled, setDisabled] = useState(false);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const getRepos = async () => {
-      const EXAMPLE_ORGANIZATION = "ktsstudio";
-      try {
-        await new GitHubStore()
-          .getOrganizationReposList({
-            organizationName: EXAMPLE_ORGANIZATION,
-          })
-          .then((repo) => setRepoList(repo.data))
-          .finally(() => {
-            setIsLoading(false);
-            setDisabled(false);
-          });
-      } catch (err) {}
-    };
-    getRepos();
+    reposContext.load();
   }, [value]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-  };
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setValue(event.target.value);
+      setDisabled(false);
+    },
+    []
+  );
 
-  const handleSearch = () => {
-    const filteredData = repoList.filter((repo) => {
+  const handleSearch = useCallback(() => {
+    reposContext.list = reposContext.list.filter((repo) => {
       return repo.name.toLowerCase().includes(value.toLowerCase());
     });
-    setRepoList(filteredData);
     setDisabled(true);
-  };
-
-  const showDrawer = () => {
-    setVisible(true);
-  };
-
-  const onClose = () => {
-    setVisible(false);
-  };
+  }, [reposContext, value]);
 
   return (
-    <div className="ReposSearchPage">
-      <div className="search">
-        <Input
-          placeholder="Введите название репозитория"
-          onChange={handleChange}
-          value={value}
-        />
-        <Button
-          onClick={handleSearch}
-          disabled={disabled}
-          className="search__btn"
-        >
-          <SearchIcon />
-        </Button>
-      </div>
-
-      <div className="cards">
-        {repoList.map((repo) => (
-          <React.Fragment key={repo.id}>
-            <RepoTitle repo={repo} onClick={showDrawer} />
-
-            <RepoBranchesDrawer
-              selectedRepo={repo}
-              visible={visible}
-              onClose={onClose}
+    <div>
+      {reposContext.loading !== Meta.error && (
+        <Spin spinning={reposContext.loading === Meta.loading} tip="Loading...">
+          <div className={styles.search}>
+            <Input
+              placeholder="Введите название репозитория"
+              onChange={handleChange}
+              value={value}
             />
-          </React.Fragment>
-        ))}
-
-        {!repoList.length && <span>Репозиториев не найдено</span>}
-      </div>
+            <Button onClick={handleSearch} disabled={disabled}>
+              <SearchIcon />
+            </Button>
+          </div>
+          <div>
+            <InfiniteScroll
+              next={reposContext.fetchData}
+              hasMore={true}
+              loader={<h4>Loading...</h4>}
+              dataLength={reposContext.list.length}
+            >
+              {reposContext.list.map((repo) => (
+                <React.Fragment key={repo.id}>
+                  <Link to={`/repos/${repo.id}`}>
+                    <RepoTile repo={repo} />
+                  </Link>
+                </React.Fragment>
+              ))}
+              {!reposContext.list.length && (
+                <span>Репозиториев не найдено</span>
+              )}
+            </InfiniteScroll>
+          </div>
+        </Spin>
+      )}
+      {reposContext.loading === Meta.error && (
+        <Error
+          title="Что-то пошло не так."
+          subTitle="Пожалуйста, перезагрузите страницу"
+        />
+      )}
     </div>
   );
-}
+};
+
 export default ReposSearchPage;

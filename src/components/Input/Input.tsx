@@ -15,8 +15,8 @@ const Input: React.FC<InputProps> = ({ onChange, placeholder, value }) => (
     placeholder={placeholder}
     onChange={onChange}
     value={value}
-    className="search__input"
+    className="input"
   />
 );
 
-export default Input;
+export default React.memo(Input);
