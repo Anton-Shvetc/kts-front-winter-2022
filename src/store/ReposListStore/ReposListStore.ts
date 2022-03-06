@@ -1,10 +1,15 @@
 import {
+  normalizeRepoItem,
+  RepoItemApi,
+  RepoItemModel,
+} from "@store/models/gitHub";
+import {
   CollectionModel,
   getInitialCollectionModel,
   linearizeCollection,
   normalizeCollection,
 } from "@store/models/shared/collection";
-import rootStore from "../RootStore/RootStore";
+import rootStore from "@store/RootStore";
 import { HTTPMethod } from "@store/RootStore/ApiStore/types";
 import { Meta } from "@utils/meta";
 import { ILocalStore } from "@utils/useLocalStore";
@@ -19,11 +24,6 @@ import {
 } from "mobx";
 
 import { GetOrganizationReposListParams, IReposListStore } from "./types";
-import {
-  normalizeRepoItem,
-  RepoItemApi,
-  RepoItemModel,
-} from "@store/models/gitHub/repoItem";
 
 type PrivateFields = "_list" | "_meta";
 

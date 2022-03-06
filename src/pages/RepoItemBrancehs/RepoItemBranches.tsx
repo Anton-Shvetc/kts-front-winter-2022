@@ -1,11 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import React from "react";
-
 import { useReposContext } from "../../App/App";
-
 import { Spin, Breadcrumb } from "antd";
 import { useParams, Link } from "react-router-dom";
-
 import styles from "./RepoItemBranches.module.scss";
 import Button from "@components/Button/Button";
 import Error from "@components/Error/Error";
@@ -45,24 +42,14 @@ const RepoItemBranches: React.FC = () => {
             {repo.map((repo) => (
               <React.Fragment key={repo.id}>
                 <h2>Репозиторий {repo.name}</h2>
-                <div className={styles.repoItems__branches}>
-                  <div>
-                    <h3>Информация о владельце</h3>
-                    <p>Имя владельца: {repo.owner.login}</p>
-                    <p>
-                      URL: <a href={repo.owner.url}>{repo.owner.login}</a>
-                    </p>
-                  </div>
+                <div className={styles.repoItemPage__content}>
                   <div>
                     <p>
                       URL: <a href={repo.url}>{repo.name}</a>
                     </p>
                     <p>Приватность: {repo.private ? "Да" : "Нет"}</p>
                     <p>Количество звезд: {repo.stargazersCount}</p>
-                    <Button
-                      onClick={showDrawer}
-                      className={styles.repoItems__btn}
-                    >
+                    <Button onClick={showDrawer}>
                       Показать ветки репозитория
                     </Button>
                   </div>

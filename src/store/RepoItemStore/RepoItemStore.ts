@@ -74,12 +74,12 @@ export default class RepoItemStore implements RepoItemStore, ILocalStore {
       updatedAt: new Date(),
     };
 
-    // const response = await this._api.request<RepoItemApi>({
-    //   method: HTTPMethod.GET,
-    //   endpoint: `/repos/${params.organizationName}/${params.name}`,
-    //   headers: {},
-    //   data: {},
-    // });
+    const response = await this._api.request<RepoItemApi>({
+      method: HTTPMethod.GET,
+      endpoint: `/repos/${params.organizationName}/${params.name}`,
+      headers: {},
+      data: {},
+    });
 
     runInAction(() => {
       if (!response.success) {
@@ -87,7 +87,7 @@ export default class RepoItemStore implements RepoItemStore, ILocalStore {
       }
       try {
         /* eslint-disable no-console */
-        console.log(response);
+
         /* eslint-disable no-console */
         this._meta = Meta.success;
         this._repo = response.data.map(normalizeRepoItem);

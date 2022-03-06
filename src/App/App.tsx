@@ -15,6 +15,7 @@ import ReposSearchPage from "@pages/ReposSearchPage/ReposSearchPage";
 import { RepoItemModel } from "@store/models/gitHub/repoItem";
 import { useLocalStore } from "@utils/useLocalStore";
 import ReposListStore from "@store/ReposListStore/ReposListStore";
+import { observer } from "mobx-react-lite";
 
 type ReposContextType = {
   list: RepoItemModel[];
@@ -30,7 +31,6 @@ const ReposContext = createContext<ReposContextType>({
   fetchData: () => {},
 });
 
-
 const Provider = ReposContext.Provider;
 
 export const useReposContext = () => useContext(ReposContext);
@@ -43,16 +43,15 @@ function App() {
 
   const load = useCallback(async () => {
     await reposListStore.getOrganizationReposList({
-      organizationName: "kubernetes",
+      organizationName: "ktsstudio",
       per_page: 10,
       page: page,
     });
   }, [reposListStore, page]);
-
- 
   const fetchData = () => {
     setPage(page++);
   };
+
 
   return (
     <Provider value={{ list, loading, load, fetchData }}>
@@ -69,4 +68,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);

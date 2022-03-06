@@ -1,14 +1,20 @@
-.repoItems {
+.repoItemPage {
   margin: 20px;
   text-align: center;
 
   & h2 {
+    text-align: center;
     margin: 30px;
   }
-  button {
+
+  &__content {
     display: flex;
-    align-items: center;
-    margin: 0 auto;
-    width: 200px;
+    justify-content: space-around;
+
+    & button {
+      margin-top: 20px;
+      margin: 0 auto;
+      width: 200px;
+    }
   }
 }
