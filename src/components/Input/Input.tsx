@@ -15,7 +15,7 @@ const Input: React.FC<InputProps> = ({ onChange, placeholder, value }) => (
     placeholder={placeholder}
     onChange={onChange}
     value={value}
-    className="search__input"
+    className="input"
   />
 );
 

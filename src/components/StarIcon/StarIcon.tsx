@@ -1,13 +1,14 @@
 import React from "react";
-import "./StarIcon.scss";
 
-export type StartIconProps = {
+import styles from "./StarIcon.module.scss";
+
+export type StarIconProps = {
   currentColor?: string;
 };
 
-const StartIcon: React.FC<StartIconProps> = ({ currentColor = "#FF9432" }) => (
+const StarIcon: React.FC<StarIconProps> = ({ currentColor = "#FF9432" }) => (
   <svg
-    className="card__raiting"
+    className={styles.starIcon}
     xmlns="http://www.w3.org/2000/svg"
     width="14"
     height="13"
@@ -23,4 +24,4 @@ const StartIcon: React.FC<StartIconProps> = ({ currentColor = "#FF9432" }) => (
   </svg>
 );
 
-export default StartIcon;
+export default React.memo(StarIcon);

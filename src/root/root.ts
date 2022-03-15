@@ -12,5 +12,6 @@ gitHubStore
   .then((result) => {
     /* eslint-disable no-console */
     console.log(result);
+
     /* eslint-disable no-console */
   });
